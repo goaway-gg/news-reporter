@@ -22,5 +22,5 @@ soup = BeautifulSoup(src, "lxml")
 all_category_of_news = soup.find_all(class_="footer__rubric-item")
 for item in all_category_of_news:
 	item_text = item.text
-	item_href = item.find("a", href=True).text
+	item_href = item.find("a", href=True).get("href")
 	print(f"{item_text} : {item_href}")
