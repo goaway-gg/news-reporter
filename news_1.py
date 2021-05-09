@@ -14,3 +14,5 @@ headers = {
 req = requests.get(url1, headers=headers)
 src = req.text
 #print(src)
+with open("copy.html", "w", encoding="UTF-8") as file:
+	file.write(src)
