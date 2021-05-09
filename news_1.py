@@ -16,5 +16,11 @@ class find_site_with_news(object):
 ##print(src)
 #with open("url1.html", "w", encoding="UTF-8") as file:
 #	file.write(src)
-with open("copy.html", "r") as file:
+with open("copy.html", "r", encoding="UTF-8") as file:
 	src = file.read()
+soup = BeautifulSoup(src, "lxml")
+all_category_of_news = soup.find_all(class_="footer__rubric-item")
+for item in all_category_of_news:
+	item_text = item.text
+	item_href = item.find("a", href=True).text
+	print(f"{item_text} : {item_href}")
