@@ -1,23 +1,22 @@
 from bs4 import BeautifulSoup
 import requests
-#ссылка на сайт
-url = {
-	1 : "https://ria.ru/",
-	2 : "https://tass.ru/",
-	3 : "https://www.interfax.ru/",
-	4 : "https://www.rbc.ru/",
-	5 : "https://lenta.ru/",
-	6 : "https://www.gazeta.ru/",
-	7 : "https://www.kommersant.ru/",
-	8 : "https://smotrim.ru/articles",
-	9 : "https://echo.msk.ru/",
-	10 : "https://svpressa.ru/",
-	11 : "https://tvrain.ru/",
-	12 : "https://rg.ru/",
-}
 class find_site_with_news_of_category(object):
-	def __init__(self):
-		global url
+	#ссылка на сайт
+	url = {
+		1 : "https://ria.ru/",
+		2 : "https://tass.ru/",
+		3 : "https://www.interfax.ru/",
+		4 : "https://www.rbc.ru/",
+		5 : "https://lenta.ru/",
+		6 : "https://www.gazeta.ru/",
+		7 : "https://www.kommersant.ru/",
+		8 : "https://smotrim.ru/articles",
+		9 : "https://echo.msk.ru/",
+		10 : "https://svpressa.ru/",
+		11 : "https://tvrain.ru/",
+		12 : "https://rg.ru/",
+	}
+	def feed(self):
 		#прописаны классы соответственно новостному сайту
 		cls_ = {
 			1 : "cell-list__item m-no-image",
@@ -34,7 +33,7 @@ class find_site_with_news_of_category(object):
 			12 : "b-feed__list_com",
 		}
 		for i in range(1,13):
-			print(f"\n{url[i]}\n")
+			print(f"\n{self.url[i]}\n")
 			#чтение файлов через цикл
 			with open("url"+str(i)+".html", "r", encoding="UTF-8") as file:
 				src = file.read()
@@ -66,9 +65,7 @@ class find_site_with_news_of_category(object):
 				else:
 					item_href = item.find("a", href=True).get("href")
 				print(f"{item_text} : {item_href}")
-	@staticmethod
-	def loading():
-		global url
+	def loading(self):
 		#идентификация кода в виде пользователя
 		headers = {
 			"Accept" : "*/*",
@@ -76,11 +73,10 @@ class find_site_with_news_of_category(object):
 		}
 		#переход на сайт с помощью кода
 		for i in range(1,13):
-			req = requests.get(url[i], headers=headers)
+			req = requests.get(self.url[i], headers=headers)
 			src = req.text
 		#print(src)
 			with open(("url"+str(i)+".html"), "w", encoding="UTF-8") as file:
 				file.write(src)
 fswnoc = find_site_with_news_of_category()
-#fswnoc.loading()
-fswnoc
+fswnoc.feed()
