@@ -66,19 +66,21 @@ class find_site_with_news_of_category(object):
 				else:
 					item_href = item.find("a", href=True).get("href")
 				print(f"{item_text} : {item_href}")
-def loading():
-	global url
-	#идентификация кода в виде пользователя
-	headers = {
-		"Accept" : "*/*",
-		"User-Agent" : "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 YaBrowser/21.3.3.234 Yowser/2.5 Safari/537.36"
-	}
-	#переход на сайт с помощью кода
-	for i in range(1,13):
-		req = requests.get(url[i], headers=headers)
-		src = req.text
-	#print(src)
-		with open(("url"+str(i)+".html"), "w", encoding="UTF-8") as file:
-			file.write(src)
-loading()
-find_site_with_news_of_category()
+	@staticmethod
+	def loading():
+		global url
+		#идентификация кода в виде пользователя
+		headers = {
+			"Accept" : "*/*",
+			"User-Agent" : "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 YaBrowser/21.3.3.234 Yowser/2.5 Safari/537.36"
+		}
+		#переход на сайт с помощью кода
+		for i in range(1,13):
+			req = requests.get(url[i], headers=headers)
+			src = req.text
+		#print(src)
+			with open(("url"+str(i)+".html"), "w", encoding="UTF-8") as file:
+				file.write(src)
+fswnoc = find_site_with_news_of_category()
+#fswnoc.loading()
+fswnoc
